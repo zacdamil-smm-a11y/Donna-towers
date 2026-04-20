@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marina City Inspired Component</title>
+    <style>
+        :root {
+            --bg-color: #e0e7ff;
+            --tower-color: #ffffff;
+            --balcony-shadow: rgba(0, 0, 0, 0.1);
+            --base-color: #cbd5e1;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #87ceeb, #e0e7ff);
+            font-family: sans-serif;
+        }
+
+        .scene {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .towers-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+            z-index: 2;
+        }
+
+        /* Individual Tower Styling */
+        .tower {
+            width: 120px;
+            display: flex;
+            flex-direction: column-reverse;
+            background: #f8fafc;
+            border-top-left-radius: 60px;
+            border-top-right-radius: 60px;
+            box-shadow: 10px 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+        }
+
+        /* Generating the scalloped balcony effect */
+        .floor {
+            height: 12px;
+            width: 100%;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .floor::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 50% 100%, transparent 40%, var(--balcony-shadow) 45%, #fff 50%);
+            background-size: 20px 10px;
+        }
+
+        /* The Podium/Base */
+        .podium {
+            width: 500px;
+            height: 100px;
+            background: var(--base-color);
+            border-radius: 10px 10px 0 0;
+            margin-top: -5px;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid #94a3b8;
+        }
+
+        .screen {
+            width: 80px;
+            height: 50px;
+            background: #334155;
+            border: 2px solid #fff;
+        }
+
+        .road {
+            width: 100%;
+            height: 40px;
+            background: #475569;
+            margin-top: 0;
+            position: relative;
+        }
+
+        .road::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, white, white 20px, transparent 20px, transparent 40px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scene">
+        <div class="towers-container">
+            <div class="tower" id="tower1"></div>
+            <div class="tower" id="tower2" style="height: 380px;"></div>
+        </div>
+        
+        <div class="podium">
+            <div class="screen"></div>
+            <div class="entrance" style="width: 40px; height: 60px; background: #1e293b;"></div>
+            <div class="screen"></div>
+        </div>
+        <div class="road"></div>
+    </div>
+
+    <script>
+        // Dynamically add floors to simulate the high-rise look
+        const tower1 = document.getElementById('tower1');
+        const tower2 = document.getElementById('tower2');
+
+        function buildFloors(element, count) {
+            for (let i = 0; i < count; i++) {
+                const floor = document.createElement('div');
+                floor.className = 'floor';
+                element.appendChild(floor);
+            }
+        }
+
+        buildFloors(tower1, 35);
+        buildFloors(tower2, 30);
+    </script>
+</body>
+</html>
